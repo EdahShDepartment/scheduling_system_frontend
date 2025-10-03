@@ -20,7 +20,7 @@ defineEmits(['navigate']);
     </div>
     <nav class="flex-1 px-4 py-6 space-y-2">
       <a href="#" v-for="page in pages" :key="page.id" @click.prevent="$emit('navigate', page.id)"
-        :class="['flex items-center py-2 px-4 rounded-lg hover:bg-gray-700', { 'bg-blue-500 text-white font-semibold': currentPage.id === page.id }]">
+        :class="['flex items-center py-2 px-4 rounded-lg', { 'bg-blue-500 text-white font-semibold': currentPage.id === page.id }, { 'hover:bg-gray-700': currentPage.id !== page.id }]">
         <Icon :icon="page.icon" class="h-5 w-5 mr-3" />
         {{ page.name }}
       </a>

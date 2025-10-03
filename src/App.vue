@@ -4,9 +4,8 @@ import Sidebar from './components/Sidebar.vue';
 import Footer from './components/Footer.vue';
 
 // 引入頁面元件
-import MainSettingsPage from './pages/MainSettingsPage.vue';
+import RulesSettingsPage from './pages/RulesSettingsPage.vue';
 import ShiftManagementPage from './pages/ShiftManagementPage.vue';
-import RulesHealthPage from './pages/RulesHealthPage.vue';
 import EmployeeShiftPage from './pages/EmployeeShiftPage.vue';
 import FlexibleHoursPage from './pages/FlexibleHoursPage.vue';
 import ResultsPage from './pages/ResultsPage.vue';
@@ -15,9 +14,8 @@ import ResultsPage from './pages/ResultsPage.vue';
 const pages = ref([
   { id: 'employee-shift', name: '員工資料設定', component: markRaw(EmployeeShiftPage), icon: 'heroicons:users' },
   { id: 'shift-management', name: '班別設定', component: markRaw(ShiftManagementPage), icon: 'heroicons:clock' },
-  { id: 'main-settings', name: '主要設定', component: markRaw(MainSettingsPage), icon: 'heroicons:cog-6-tooth' },
+  { id: 'rules-settings', name: '排班規則設定', component: markRaw(RulesSettingsPage), icon: 'heroicons:cog-6-tooth' },
   { id: 'flexible-hours', name: '變形工時設定', component: markRaw(FlexibleHoursPage), icon: 'heroicons:calendar-days' },
-  { id: 'rules-health', name: '規則與健檢', component: markRaw(RulesHealthPage), icon: 'heroicons:clipboard-document-list' },
   { id: 'results', name: '排班結果', component: markRaw(ResultsPage), icon: 'heroicons:chart-bar' },
 ]);
 
@@ -61,9 +59,9 @@ function runScheduling() {
 
           <!-- Actions -->
           <div class="mt-8 flex justify-end space-x-4">
-            <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg">
+            <!-- <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg">
               儲存設定
-            </button>
+            </button> -->
             <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg"
               @click="runScheduling">
               執行自動排班
