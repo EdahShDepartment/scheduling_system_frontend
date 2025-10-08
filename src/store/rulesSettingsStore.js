@@ -3,18 +3,85 @@ import { defineStore } from 'pinia'
 export const useSettingsStore = defineStore('settings', {
   state: () => ({
     scheduleMonth: '2025-10',
-    nonWorkingDays: ['2025-10-10', '2025-10-25'],
-    externalList: ['王大文'],
-    holidayShifts: [{ employee: '陳小美', shift: 'EDPT', date: '2025-10-25' }],
-    forbiddenShifts: [{ employee: '林志明', shift: 'EDA_AS' }],
-    priorityShifts: [{ employee: '張雅婷', shift: 'ED_AS' }],
+    nonWorkingDays: ['2025-10-06', '2025-10-10'],
+    externalList: [
+      "林敬傑112274", "王雅婷114884", "吳巒恩112715", "陳雅慧115590",
+      "蔡靖雪115776", "陳曉螢114167", "陳姿芳115125", "丁眉束"
+    ],
+    holidayShifts: [
+      {
+        employee: "陳慧陽115340",
+        shift: "ED_AS",
+        date: "2025-10-04"
+      },
+      {
+        employee: "陳雅慧115590",
+        shift: "ED_AS",
+        date: "2025-10-11"
+      },
+      {
+        employee: "丁眉束",
+        shift: "ED_AS",
+        date: "2025-10-18"
+      },
+      {
+        employee: "丁眉束",
+        shift: "EDA_AS",
+        date: "2025-10-04"
+      },
+      {
+        employee: "蔡靖雪115776",
+        shift: "EDA_AS",
+        date: "2025-10-11"
+      },
+      {
+        employee: "蔡靖雪115776",
+        shift: "EDA_AS",
+        date: "2025-10-18"
+      },
+      {
+        employee: "王于鳳116274",
+        shift: "ED_A",
+        date: "2025-10-24"
+      },
+      {
+        employee: "林敬傑112274",
+        shift: "EDA_A",
+        date: "2025-10-24"
+      },
+      {
+        employee: "陳姿芳115125",
+        shift: "EDPT",
+        date: "2025-10-24"
+      },
+      {
+        employee: "吳巒恩112715",
+        shift: "EDAGI",
+        date: "2025-10-24"
+      }
+    ],
+    forbiddenShifts: [{ employee: '林敬傑112274', shift: 'EDPT' }],
+    priorityShifts: [
+      { employee: '蔡靖雪115776', shift: 'ED_A' },
+      { employee: '陳曉螢114167', shift: 'EDA_A' },
+      { employee: '丁眉束', shift: 'Meta' },
+      { employee: '林敬傑112274', shift: 'NEURO' },
+      { employee: '陳雅慧115590', shift: 'EDGI' },
+      { employee: '吳巒恩112715', shift: 'CV' },
+      { employee: '陳姿芳115125', shift: 'EDPT' },
+      { employee: '陳雅慧115590', shift: 'EDAGI' }
+    ],
     specialRules: [
-      { shift: 'ENT+LDCT', employees: ['陳小美'] },
-      { shift: 'B16DK', employees: ['林志明', '張雅婷'] }
+      { shift: 'LDCT+ENT', employees: ['陳慧陽115340'] },
+      { shift: 'EDAPT+LDCT', employees: ['林怡汶109571'] },
+      { shift: 'Uro+LDCT', employees: ['林怡汶109571'] },
+      { shift: 'ENT+LDCT', employees: ['林怡汶109571'] },
+      { shift: 'B16DK', employees: ['蔡芝瑜112555', '王于鳳116274'] },
+      { shift: 'B16DX', employees: ['歐孟真113519'] },
     ],
     healthCheckShift: 'P.E.',
-    healthCheckEligible: ['陳小美', '張雅婷'],
-    selectedHealthCheckEmployee: ''
+    healthCheckEligible: ['王雅婷114884', '吳巒恩112715'],
+    selectedHealthCheckEmployee: '王雅婷114884'
   }),
 
   getters: {

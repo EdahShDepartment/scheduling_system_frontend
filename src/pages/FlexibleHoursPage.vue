@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, onMounted } from 'vue'
 import { useEmployeeStore } from '../store/employeeStore.js'
 import { useFlexibleHoursStore } from '../store/flexibleHoursStore.js'
 
@@ -42,25 +42,23 @@ const removeRule = (ruleId) => {
                     <h3 class="text-xl font-semibold mb-4 border-b pb-2">大框設定</h3>
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">▪ 開始日期</label>
+                            <label class="block text-base font-bold text-gray-700">▪ 開始日期</label>
                             <input type="date" v-model="flexibleHoursStore.bigFrame.start_date"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">▪ 結束日期</label>
+                            <label class="block text-base font-bold text-gray-700">▪ 結束日期</label>
                             <input type="date" v-model="flexibleHoursStore.bigFrame.end_date"
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
                         </div>
                         <div>
-                            <h4 class="text-sm font-medium text-gray-700 mt-4">▪ 預設最少休假天數</h4>
-                            <div class="mt-2 space-y-2">
-                                <div v-for="employee in employeeStore.employees" :key="employee.id"
-                                    class="flex items-center justify-between">
-                                    <span class="text-gray-800">{{ employee.name }}</span>
-                                    <input type="number"
-                                        v-model.number="flexibleHoursStore.bigFrame.min_leave_default[employee.name]"
-                                        min="0" class="w-24 p-1 border rounded-md text-sm">
-                                </div>
+                            <h4 class="text-base font-bold text-gray-700 mt-4">▪ 預設最少休假天數</h4>
+                            <div v-for="employee in employeeStore.employees" :key="employee.id"
+                                class="list-item flex items-center justify-between">
+                                <span class="text-gray-800 text-sm">{{ employee.name }}</span>
+                                <input type="number"
+                                    v-model.number="flexibleHoursStore.bigFrame.min_leave_default[employee.name]"
+                                    min="0" class="w-24 p-1 border rounded-md text-sm">
                             </div>
                         </div>
                     </div>
@@ -71,7 +69,7 @@ const removeRule = (ruleId) => {
             <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-xl font-semibold mb-4 border-b pb-2">小框設定</h3>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">請選擇要設定的員工</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">請選擇要更改設定的員工</label>
                     <select v-model="selectedEmployee"
                         class="block w-full rounded-md border-gray-300 shadow-sm p-2 mb-4">
                         <option hidden disabled value="">選擇員工</option>
@@ -146,7 +144,7 @@ const removeRule = (ruleId) => {
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold mb-4 border-b pb-2">設定總覽</h3>
+            <h3 class="text-xl font-semibold mb-4 border-b pb-2">變形工時預覽</h3>
             <div class="space-y-6">
                 <div class="p-4 bg-gray-50 rounded-lg">
                     <p class="font-semibold text-gray-800">

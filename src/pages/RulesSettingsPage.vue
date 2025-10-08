@@ -108,67 +108,102 @@ watch(
 </script>
 
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <div class="bg-white p-6 rounded-lg shadow-md">
-      <h3 class="text-xl font-semibold mb-4 border-b pb-2">主要排班設定</h3>
-      <div class="space-y-4">
-        <div>
-          <label for="scheduleMonth" class="block text-sm font-medium text-gray-700">▪ 排班年月</label>
-          <input type="month" id="scheduleMonth" v-model="settingsStore.scheduleMonth"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
-        </div>
-
-        <div>
-          <label for="newNonWorkingDay" class="block text-sm font-medium text-gray-700">▪ 公司規定不上班日</label>
-          <div class="mt-1 flex items-center space-x-2">
-            <input type="date" id="newNonWorkingDay" v-model="newNonWorkingDay"
-              class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
-            <button @click="addNonWorkingDay"
-              class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm whitespace-nowrap">加入日期</button>
+  <div class="flex flex-col gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-4 border-b pb-2">主要排班設定</h3>
+        <div class="space-y-4">
+          <div>
+            <label for="scheduleMonth" class="block font-bold text-base text-gray-700">▪ 排班年月</label>
+            <input type="month" id="scheduleMonth" v-model="settingsStore.scheduleMonth"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
           </div>
-          <div v-if="settingsStore.hasNonWorkingDays" class="mt-3 space-y-2">
-            <div class="flex flex-wrap gap-2">
-              <div v-for="date in settingsStore.nonWorkingDays" :key="date"
-                class="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm font-medium text-gray-700">
-                <span>{{ date }}</span>
-                <button @click="removeNonWorkingDay(date)"
-                  class="ml-2 text-gray-500 hover:text-red-600 font-bold text-lg leading-none">&times;</button>
+
+          <div>
+            <label for="newNonWorkingDay" class="block font-bold text-base text-gray-700">▪ 公司規定不上班日</label>
+            <div class="mt-1 flex items-center space-x-2">
+              <input type="date" id="newNonWorkingDay" v-model="newNonWorkingDay"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+              <button @click="addNonWorkingDay"
+                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm whitespace-nowrap">加入日期</button>
+            </div>
+            <div v-if="settingsStore.hasNonWorkingDays" class="mt-3 space-y-2">
+              <div class="flex flex-wrap gap-2">
+                <div v-for="date in settingsStore.nonWorkingDays" :key="date"
+                  class="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm font-medium text-gray-700">
+                  <span>{{ date }}</span>
+                  <button @click="removeNonWorkingDay(date)"
+                    class="ml-2 text-gray-500 hover:text-red-600 font-bold text-lg leading-none">&times;</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div>
-          <label for="externalEmployee" class="block text-sm font-medium text-gray-700">▪ 外檢名單</label>
-          <div class="mt-1 flex items-center space-x-2">
-            <select v-model="selectedExternalEmployee" class="block w-full rounded-md border-gray-300 shadow-sm p-2">
-              <option hidden disabled value="">請選擇員工加入列表</option>
-              <option v-for="employee in employeeStore.employees" :key="employee.id" :value="employee.name">{{
-                employee.name }}</option>
-            </select>
-            <button @click="addExternalEmployee"
-              class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm whitespace-nowrap">加入</button>
-          </div>
-          <div v-if="settingsStore.hasExternalEmployees" class="mt-3">
-            <div class="flex flex-wrap gap-2">
-              <div v-for="name in settingsStore.externalList" :key="name"
-                class="flex items-center bg-blue-100 rounded-full px-3 py-1 text-sm font-medium text-blue-800">
-                <span>{{ name }}</span>
-                <button @click="removeExternalEmployee(name)"
-                  class="ml-2 text-blue-500 hover:text-red-600 font-bold text-lg leading-none">&times;</button>
+          <div>
+            <label for="externalEmployee" class="block font-bold text-base text-gray-700">▪ 外檢名單</label>
+            <div class="mt-1 flex items-center space-x-2">
+              <select v-model="selectedExternalEmployee" id="externalEmployee"
+                class="block w-full rounded-md border-gray-300 shadow-sm p-2">
+                <option hidden disabled value="">請選擇員工加入列表</option>
+                <option v-for="employee in employeeStore.employees" :key="employee.id" :value="employee.name">{{
+                  employee.name }}</option>
+              </select>
+              <button @click="addExternalEmployee"
+                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm whitespace-nowrap">加入</button>
+            </div>
+            <div v-if="settingsStore.hasExternalEmployees" class="mt-3">
+              <div class="flex flex-wrap gap-2">
+                <div v-for="name in settingsStore.externalList" :key="name"
+                  class="flex items-center bg-blue-100 rounded-full px-3 py-1 text-sm font-medium text-blue-800">
+                  <span>{{ name }}</span>
+                  <button @click="removeExternalEmployee(name)"
+                    class="ml-2 text-blue-500 hover:text-red-600 font-bold text-lg leading-none">&times;</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-md">
-      <h3 class="text-xl font-semibold mb-4 border-b pb-2">排班預覽</h3>
-      <div class="mt-4 p-4 bg-gray-50 rounded-lg space-y-2 text-sm text-gray-700">
-        <p><span class="font-semibold">排班月份：</span> {{ settingsStore.scheduleMonth || '[尚未選擇]' }}</p>
-        <p><span class="font-semibold">規定假日：</span> {{ settingsStore.formattedNonWorkingDays }}</p>
-        <p><span class="font-semibold">外檢名單：</span> {{ settingsStore.formattedExternalList }}</p>
+
+      <!-- 健檢相關設定 -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-4 border-b pb-2">健檢相關設定</h3>
+        <div class="space-y-6">
+          <!-- 健檢班別選擇 -->
+          <div>
+            <label class="block font-bold text-base text-gray-700">▪ 健檢班別</label>
+            <select v-model="settingsStore.healthCheckShift"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+              <option hidden disabled value="">請選擇班別</option>
+              <option v-for="shift in shiftStore.shiftNames" :key="shift" :value="shift">{{ shift }}</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-base text-gray-700">▪ 能上健檢的名單</label>
+            <div class="mt-2 max-h-40 overflow-y-auto border rounded-md p-2 space-y-1">
+              <div v-for="emp in employeeStore.employees" :key="emp.id">
+                <label class="inline-flex items-center">
+                  <input type="checkbox" :value="emp.name" v-model="settingsStore.healthCheckEligible"
+                    class="rounded border-gray-300 text-indigo-600 shadow-sm">
+                  <span class="ml-2 text-sm text-gray-700">{{ emp.name }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="healthCheckEmployee" class="block font-bold text-base text-gray-700">▪ 當月輪健檢之員工</label>
+            <select id="healthCheckEmployee" v-model="settingsStore.selectedHealthCheckEmployee"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+              <option hidden disabled value="">請從符合資格者中選擇</option>
+              <option v-for="employeeName in settingsStore.healthCheckEligible" :key="employeeName"
+                :value="employeeName">
+                {{ employeeName }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -177,7 +212,7 @@ watch(
       <h3 class="text-xl font-semibold mb-2 border-b pb-3">特殊規則設定</h3>
       <!-- 指定假日班 -->
       <div>
-        <h4 class="font-medium text-sm text-gray-800 mb-2">▪ 指定假日班</h4>
+        <h4 class="font-bold text-base text-gray-800 mb-2">▪ 指定假日班</h4>
         <div v-for="(item, index) in settingsStore.holidayShifts" :key="index" class="list-item">
           <p class="text-gray-700">
             <span>{{ item.employee }} / {{ item.shift }} / {{ item.date }}</span>
@@ -205,7 +240,7 @@ watch(
 
       <!-- 禁止某人員上班之班別 -->
       <div>
-        <h4 class="font-medium text-sm text-gray-800 mb-2">▪ 禁止某人員上班之班別</h4>
+        <h4 class="font-bold text-base text-gray-800 mb-2">▪ 禁止某人員上班之班別</h4>
         <div v-for="(item, index) in settingsStore.forbiddenShifts" :key="index" class="list-item">
           <p class="text-gray-700">
             <span>{{ item.employee }} / {{ item.shift }}</span>
@@ -230,7 +265,7 @@ watch(
 
       <!-- 人員優先班別 -->
       <div>
-        <h4 class="font-medium text-sm text-gray-800 mb-2">▪ 人員優先班別</h4>
+        <h4 class="font-bold text-base text-gray-800 mb-2">▪ 人員優先班別</h4>
         <div v-for="(item, index) in settingsStore.priorityShifts" :key="index" class="list-item">
           <p class="text-gray-700">
             <span>{{ item.employee }} / {{ item.shift }}</span>
@@ -255,7 +290,7 @@ watch(
 
       <!-- 特殊人員排班規則 -->
       <div>
-        <h4 class="font-medium text-sm text-gray-800 mb-2">▪ 特殊人員排班規則</h4>
+        <h4 class="font-bold text-base text-gray-800 mb-2">▪ 特殊人員排班規則</h4>
         <div v-for="(rule, index) in settingsStore.specialRules" :key="index" class="list-item">
           <p class="text-gray-700 flex-1">
             <span class="font-semibold">{{ rule.shift }}:</span>
@@ -293,57 +328,63 @@ watch(
       </div>
     </div>
 
-    <!-- 健檢相關設定 -->
+    <!-- 排班規則預覽 -->
     <div class="bg-white p-6 rounded-lg shadow-md">
-      <h3 class="text-xl font-semibold mb-4 border-b pb-2">健檢相關設定</h3>
-      <div class="space-y-6">
-        <!-- 健檢班別選擇 -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700">▪ 健檢班別</label>
-          <select v-model="settingsStore.healthCheckShift"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
-            <option hidden disabled value="">請選擇班別</option>
-            <option v-for="shift in shiftStore.shiftNames" :key="shift" :value="shift">{{ shift }}</option>
-          </select>
+      <h3 class="text-xl font-semibold mb-4 border-b pb-2">排班規則預覽</h3>
+      <div class="mt-4 p-4 bg-gray-50 rounded-lg space-y-2 text-sm text-gray-700">
+        <p><span class="font-semibold">排班月份：</span> {{ settingsStore.scheduleMonth || '[尚未選擇]' }}</p>
+        <p><span class="font-semibold">規定假日：</span> {{ settingsStore.nonWorkingDays.join(', ') || '[無]' }}</p>
+        <p><span class="font-semibold">外檢名單：</span> {{ settingsStore.externalList.join(', ') || '[無]' }}</p>
+        <div class="space-y-2">
+          <p><span class="font-semibold">指定假日班：</span>
+            <span v-if="!settingsStore.holidayShifts.length"> [無]</span>
+          </p>
+          <ul v-if="settingsStore.holidayShifts.length" class="list-disc list-inside pl-4">
+            <li v-for="(item, index) in settingsStore.holidayShifts" :key="index">
+              {{ item.date }} / {{ item.employee }} / {{ item.shift }}
+            </li>
+          </ul>
         </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700">▪ 能上健檢的名單</label>
-          <div class="mt-2 max-h-40 overflow-y-auto border rounded-md p-2 space-y-1">
-            <div v-for="emp in employeeStore.employees" :key="emp.id">
-              <label class="inline-flex items-center">
-                <input type="checkbox" :value="emp.name" v-model="settingsStore.healthCheckEligible"
-                  class="rounded border-gray-300 text-indigo-600 shadow-sm">
-                <span class="ml-2 text-sm text-gray-700">{{ emp.name }}</span>
-              </label>
-            </div>
-          </div>
+        <div class="space-y-2">
+          <p><span class="font-semibold">禁止某人員上班之班別：</span>
+            <span v-if="!settingsStore.forbiddenShifts.length"> [無]</span>
+          </p>
+          <ul v-if="settingsStore.forbiddenShifts.length" class="list-disc list-inside pl-4">
+            <li v-for="(item, index) in settingsStore.forbiddenShifts" :key="index">
+              {{ item.employee }} / {{ item.shift }}
+            </li>
+          </ul>
         </div>
-        <div>
-          <label for="healthCheckEmployee" class="block text-sm font-medium text-gray-700">▪ 當月輪健檢之員工</label>
-          <select id="healthCheckEmployee" v-model="settingsStore.selectedHealthCheckEmployee"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
-            <option hidden disabled value="">請從符合資格者中選擇</option>
-            <option v-for="employeeName in settingsStore.healthCheckEligible" :key="employeeName" :value="employeeName">
-              {{ employeeName }}
-            </option>
-          </select>
+        <div class="space-y-2">
+          <p><span class="font-semibold">人員優先班別：</span>
+            <span v-if="!settingsStore.priorityShifts.length"> [無]</span>
+          </p>
+          <ul v-if="settingsStore.priorityShifts.length" class="list-disc list-inside pl-4">
+            <li v-for="(item, index) in settingsStore.priorityShifts" :key="index">
+              {{ item.employee }} / {{ item.shift }}
+            </li>
+          </ul>
         </div>
+        <div class="space-y-2">
+          <p><span class="font-semibold">特殊人員排班規則：</span>
+            <span v-if="!settingsStore.specialRules.length"> [無]</span>
+          </p>
+          <ul v-if="settingsStore.specialRules.length" class="list-disc list-inside pl-4">
+            <li v-for="(item, index) in settingsStore.specialRules" :key="index">
+              <span class="font-semibold">{{ item.shift }}:</span>
+              <span class="ml-2">{{ item.employees.join(', ') }}</span>
+            </li>
+          </ul>
+        </div>
+        <p><span class="font-semibold">健檢班別：</span> {{ settingsStore.healthCheckShift || '[尚未選擇]' }}</p>
+        <p><span class="font-semibold">能上健檢的名單：</span> {{ settingsStore.healthCheckEligible.join(', ') || '[無]' }}</p>
+        <p><span class="font-semibold">當月輪健檢之員工：</span> {{ settingsStore.selectedHealthCheckEmployee || '[尚未選擇]' }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 4px;
-  border-bottom: 1px solid #eee;
-  font-size: 0.875rem;
-}
-
 .input-group {
   display: flex;
   align-items: center;
